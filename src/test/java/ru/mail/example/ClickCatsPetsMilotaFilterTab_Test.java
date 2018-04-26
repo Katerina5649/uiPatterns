@@ -1,5 +1,8 @@
 package ru.mail.example;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +18,7 @@ import java.util.List;
  * Проверяем клил по плитке статьи на странице /milota проекта "Питомцы"
  * @author Pavel Balahonov <p.balahonov@corp.mail.ru>
  */
+@DisplayName("Проверяем клил по плитке статьи на странице /milota проекта \"Питомцы\"")
 public class ClickCatsPetsMilotaFilterTab_Test {
 
     private DriverProvider driverProvider = null;
@@ -30,6 +34,7 @@ public class ClickCatsPetsMilotaFilterTab_Test {
     }
 
     @Test
+    @Severity(SeverityLevel.BLOCKER)
     public void click_milota_filter_cats_pet_tab() {
         //Открываем страницу "Милота"
         PetsMilotaPageSteps petsMilotaPageSteps = new PetsMilotaPageSteps(driverProvider.getDriver());

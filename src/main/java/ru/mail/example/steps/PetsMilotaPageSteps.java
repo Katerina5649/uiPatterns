@@ -1,5 +1,6 @@
 package ru.mail.example.steps;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.example.pages.PetsMilotaPage;
@@ -22,38 +23,26 @@ public class PetsMilotaPageSteps extends AbstractSteps {
         petsMilotaPage = PageFactory.initElements(driver, PetsMilotaPage.class);
     }
 
-    /**
-     * Проверяет заголовок страницы
-     * @param header - заголовок страницы
-     */
+    @Step("Получаем заголовок страницы")
     private void pageHeaderShouldBeSameAs(String header) {
         assertEquals("На странице отображается неверный заголовок",
-                header,
+                header + "123456",
                 petsMilotaPage.getPageHeader());
     }
 
-    /**
-     * Реализация паттерна Action. Открывает страницу "Милота"
-     * @param header - заголовок страницы
-     */
+    @Step("Открываем страницу {header}")
     public void open(String header) {
         petsMilotaPage.open();
         petsMilotaPage.pageValidate();
         pageHeaderShouldBeSameAs(header);
     }
 
-    /**
-     * Возвращает названия всех статей на странице
-     * @return названия статей
-     */
+    @Step("Получаем названия всех статей на странице")
     public List<String> getAllArticlesTitles() {
         return petsMilotaPage.getAllArticlesTitles();
     }
 
-    /**
-     * Проверяет, что список статей на странице изменился
-     * @param titles - названия статей
-     */
+    @Step("Проверяем, что список статей на странице изменился и не соответствует списку {titles}")
     public void articlesTitlesShouldBeChanged(List<String> titles) {
         assertTrue("Список статей на странице должен измениться",
                 petsMilotaPage.isArticlesTitlesChanged(titles));

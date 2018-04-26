@@ -11,10 +11,11 @@
     <properties>
         <junit.version>4.12</junit.version>
         <webdriver.base.url>https://pets.mail.ru/</webdriver.base.url>
-        <surefire.maven.plugin.version>2.20.1</surefire.maven.plugin.version>
+        <surefire.maven.plugin.version>2.20</surefire.maven.plugin.version>
         <maven.compile.plugin.version>3.5.1</maven.compile.plugin.version>
         <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
         <selenium.version>3.11.0</selenium.version>
+
     </properties>
 
     <dependencies>
@@ -28,6 +29,18 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit4</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
         </dependency>
     </dependencies>
 
@@ -48,13 +61,32 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.maven.plugin.version}</version>
                 <configuration>
+                    <testFailureIgnore>false</testFailureIgnore>
                     <argLine>-Xms1024m -Xmx9216m -Dfile.encoding=UTF-8</argLine>
 
                     <systemPropertyVariables>
                         <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}</webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
+
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.junit4.AllureJunit4</value>
+                        </property>
+                    </properties>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>1.8.10</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
