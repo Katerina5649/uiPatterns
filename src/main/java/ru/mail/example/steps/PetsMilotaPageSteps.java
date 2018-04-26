@@ -26,7 +26,7 @@ public class PetsMilotaPageSteps extends AbstractSteps {
     @Step("Получаем заголовок страницы")
     private void pageHeaderShouldBeSameAs(String header) {
         assertEquals("На странице отображается неверный заголовок",
-                header + "123456",
+                header,
                 petsMilotaPage.getPageHeader());
     }
 
